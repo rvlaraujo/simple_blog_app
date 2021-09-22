@@ -10,7 +10,7 @@ RSpec.feature 'Creating articles' do
 
     click_button 'Create Article'
 
-    expect(page).to have_content('Article has been created')
-    expect(page.current_path).to eq(articles_path)
+    expect(page).to have_content('Article was successfully created')
+    expect(page).to have_current_path(articles_path)
   end
 end

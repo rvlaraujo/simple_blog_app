@@ -20,6 +20,9 @@ RUN bundle config --local disable_platform_warnings true
 RUN bundle install --no-binstubs --jobs $(nproc)
 COPY . /simple_blog_app
 
+COPY entrypoint.sh /usr/bin
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT [ "sh", "/usr/bin/entrypoint.sh" ]
 EXPOSE 3000
 
 CMD ["bundle", "exec", "rspec --format documentation"]
