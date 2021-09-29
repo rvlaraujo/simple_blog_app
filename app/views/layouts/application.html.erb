@@ -11,6 +11,14 @@
   </head>
 
   <body>
+    <% if current_user.nil? %>
+      <h1>Not user logged in. Please, <%= link_to 'click here to log in', new_user_session_path %></h1>
+    <% else %>
+      <h1> Welcome to SimpleBlogApp, <%= current_user.email %></h1>
+      <h2>
+        <%= button_to :logout, destroy_user_session_path, method: :delete %>
+      </h2>
+    <% end %>
     <%= yield %>
   </body>
 </html>
