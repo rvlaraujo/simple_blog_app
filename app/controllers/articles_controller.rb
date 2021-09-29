@@ -17,6 +17,12 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1/edit
   def edit
+    unless @article.user == current_user
+      respond_to do |format|
+        format.html { redirect_to articles_url, notice: 'You cannot edit Articles not created by yourselve!' }
+        format.json { render json: @articles.erros, status: :method_not_allowed }
+      end
+    end
   end
 
   # POST /articles or /articles.json
@@ -52,8 +58,13 @@ class ArticlesController < ApplicationController
   def destroy
     @article.destroy
     respond_to do |format|
-      format.html { redirect_to articles_url, notice: "Article was successfully destroyed." }
-      format.json { head :no_content }
+      if @article.user == current_user
+        format.html { redirect_to articles_url, notice: "Article was successfully destroyed." }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to articles_url, notice: 'You cannot delete Articles not created by yourselve!' }
+        format.html { render json: @article.erros, status: :method_not_allowed }
+      end
     end
   end
 
