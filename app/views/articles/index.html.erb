@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Articles</h1>
-
+<% if @articles.empty? %>
+  <h2>There's not Articles to show</h2>
+<% else %>
 <table>
   <thead>
     <tr>
@@ -25,7 +27,7 @@
     <% end %>
   </tbody>
 </table>
-
+<% end%>
 <br>
 
 <%= link_to 'New Article', new_article_path %>

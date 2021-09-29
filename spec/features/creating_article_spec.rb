@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Creating articles' do
+  
   scenario 'A user creates a new article' do
     visit '/'
     
@@ -27,5 +28,11 @@ RSpec.feature 'Creating articles' do
     expect(page).to have_content("Title can't be blank")
     expect(page).to have_content("Body can't be blank")
     expect(page).to have_current_path(articles_path)
+  end
+
+  scenario 'A user has no articles to show' do
+    Article.delete_all
+    visit articles_path
+    expect(page).to have_content("There's not Articles to show")
   end
 end
