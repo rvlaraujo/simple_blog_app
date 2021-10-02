@@ -10,5 +10,26 @@
   <%= @article.body %>
 </p>
 
+<p>
+  <%= link_to 'Adding a comment', new_comment_path(article_id: @article.id) %>
+</p>
+
+<% if @comments.nil? %>
+<p>
+  <strong>Comments:</strong> This articles has no comments.
+</p>
+<% else %>
+  <p>
+    <strong>Comments:</strong> <%= @comments.length %>
+  </p>
+  <% @comments.each do |comment| %>
+    <p>
+      <%= comment.body %>
+    </p>
+    <p>Commented by: <%= article_comment_info(comment) %> </p>
+    <hr/>
+  <% end %>
+<% end %>
+
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Back', articles_path %>
