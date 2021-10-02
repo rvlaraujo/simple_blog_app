@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
+  before_action :set_comments, only: %i[show]
 
   # GET /articles or /articles.json
   def index
@@ -7,9 +8,7 @@ class ArticlesController < ApplicationController
   end
 
   # GET /articles/1 or /articles/1.json
-  def show
-    @comments = Comment.find_by(article_id: @article.id)
-  end
+  def show; end
 
   # GET /articles/new
   def new
@@ -74,6 +73,10 @@ class ArticlesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_article
     @article = Article.find(params[:id])
+  end
+
+  def set_comments
+    @comments = Comment.where(article_id: @article.id)
   end
 
   # Only allow a list of trusted parameters through.

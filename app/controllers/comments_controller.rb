@@ -1,6 +1,5 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[show edit update destroy]
-  # before_action :set_article, only: %i[show]
   before_action :set_user, only: %i[new create]
 
   # GET /comments or /comments.json
@@ -26,7 +25,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
+        format.html { redirect_to article_path(@comment.article_id), notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else
         @article = Article.find(params[:comment][:article_id])
@@ -40,7 +39,7 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
+        format.html { redirect_to article_path(@comment.article_id), notice: 'Comment was successfully updated.' }
         format.json { render :show, status: :ok, location: @comment }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -63,10 +62,6 @@ class CommentsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_comment
     @comment = Comment.find(params[:id])
-  end
-
-  def set_article
-    @article = Article.find(params[:articles_id])
   end
 
   def set_user

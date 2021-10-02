@@ -20,12 +20,13 @@
 </p>
 <% else %>
   <p>
-    <strong>Comments:</strong> <%= @comments.size %>
+    <strong>Comments:</strong> <%= @comments.length %>
   </p>
   <% @comments.each do |comment| %>
     <p>
       <%= comment.body %>
     </p>
+    <p>Commented by: <%= article_comment_info(comment) %> </p>
     <hr/>
   <% end %>
 <% end %>
