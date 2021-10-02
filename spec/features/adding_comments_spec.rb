@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'adding reviews to Articles' do
-
-  before do 
+  before do
     @john = new User(email: 'john@email.com', password: '123456')
     @fred = new User(email: 'fred@email.com', password: '123456')
     @article = Article.create!(title: 'New Article', body: 'New Body', user: @john)
@@ -21,5 +20,4 @@ RSpec.feature 'adding reviews to Articles' do
     expect(page).to have_content('An amazing Article')
     expect(current_path).to eq(article_path(@article.id))
   end
-
 end
