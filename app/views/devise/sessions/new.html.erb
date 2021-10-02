@@ -1,5 +1,19 @@
 <h2>Log in</h2>
 
+<% if User.count == 0 %>
+<p>You need to registry a new User or try to run the following commands before starts the application:</p>
+<ul>
+  <li>rails db:drop</li>
+  <li>rails db:setup</li>
+</ul>
+<% else %>
+<p>Try</p>
+<ul>
+  <li><strong>Email:</strong> admin@email.com</li>
+  <li><strong>Password:</strong> admin123</li>
+</ul>
+<% end %>
+
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
     <%= f.label :email %><br />
