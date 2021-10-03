@@ -12,6 +12,12 @@ class ArticlesController < ApplicationController
 
   # GET /articles/new
   def new
+    if current_user.nil?
+      respond_to do |format|
+        format.html { redirect_to new_user_session_path, notice: 'You need to loged in to create a New Article' }
+        format.json { render json: @article.erros, status: :method_not_allowed }
+      end
+    end
     @article = Article.new
   end
 
