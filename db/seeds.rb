@@ -9,5 +9,4 @@
 ## Create a admin user
 
 admin_user = User.new(email: 'admin@email.com', password: 'admin123', password_confirmation: 'admin123')
-# admin_user.skip_confirmation!
 admin_user.save!
