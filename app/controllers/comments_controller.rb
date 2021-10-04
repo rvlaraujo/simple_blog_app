@@ -12,6 +12,12 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
+    if current_user.nil?
+      respond_to do |format|
+        format.html { redirect_to new_user_session_path, notice: 'To create comments you need to logged in' }
+        format.json { render json: @comment.erros, status: :unauthorized }
+      end
+    end
     @comment = Comment.new
     @article = Article.find(params[:article_id])
   end
