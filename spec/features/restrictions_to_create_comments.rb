@@ -3,11 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Restrictions to make comments' do
   scenario 'Only logged users can create comments' do
     user = FactoryBot.create(:user)
-    article = Article.create!(
-      title: 'Only logged users can create comments',
-      body: 'Only logged users can create comments',
-      user_id: user.id
-    )
+    article = FactoryBot.create(:article, user_id: user.id)
 
     visit article_path(article)
 
@@ -16,5 +12,6 @@ RSpec.feature 'Restrictions to make comments' do
   end
 
   # scenario 'Users cannot comment in his Articles' do
+    
   # end
 end
