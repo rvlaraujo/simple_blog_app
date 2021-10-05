@@ -12,8 +12,21 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
-    @comment = Comment.new
     @article = Article.find(params[:article_id])
+    if current_user.nil?
+      respond_to do |format|
+        format.html { redirect_to new_user_session_path, notice: 'To create comments you need to logged in' }
+        format.json { render json: @comment.erros, status: :unauthorized }
+      end
+    elsif current_user.id == @article.user_id
+      respond_to do |format|
+        format.html do
+          redirect_to article_path(@article), notice: 'You cannot add comments for your Article'
+        end
+        format.json { render json: @comment.erros, status: :forbidden }
+      end
+    end
+    @comment = Comment.new
   end
 
   # GET /comments/1/edit
